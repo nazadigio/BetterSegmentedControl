@@ -448,7 +448,7 @@ import UIKit
             selectedSegmentViews[index].accessibilityTraits = (index == self.index ? [.button, .selected] : [.button])
         }
 
-        if shouldUpdateNormalViewsStateWhenUpdateTraits {}
+        if shouldUpdateNormalViewsStateWhenUpdateTraits {
             for (index, view) in normalSegmentViews.enumerated() {
                 view.isHidden = index == self.index
             }
