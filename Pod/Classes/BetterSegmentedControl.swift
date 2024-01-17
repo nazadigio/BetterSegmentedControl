@@ -123,7 +123,7 @@ import UIKit
         let singleSegmentWidth = totalInsetSize + max(maxSegmentIntrinsicContentSizeWidth, Constants.minimumSegmentIntrinsicContentSizeWidth) + segmentPadding
         
         let width = ceil(CGFloat(segments.count) * singleSegmentWidth)
-        let height = ceil(max(maxSegmentIntrinsicContentSizeHeight + totalInsetSize, Constants.minimumIntrinsicContentSizeHeight))
+        let height = ceil(max(maxSegmentIntrinsicContentSizeHeight + totalInsetSize, minimumIntrinsicContentSizeHeight))
         
         return .init(width: width, height: height)
     }
@@ -133,6 +133,9 @@ import UIKit
     private let selectedSegmentViewsContainerView = UIView()
     private let pointerInteractionViewsContainerView = UIView()
     
+    public var minimumIntrinsicContentSizeHeight: CGFloat = Constants.minimumIntrinsicContentSizeHeight
+    public var shouldUpdateNormalViewsStateWhenUpdateTraits: Bool = false
+
     private var initialIndicatorViewFrame: CGRect?
 
     private var tapGestureRecognizer: UITapGestureRecognizer!
@@ -443,6 +446,12 @@ import UIKit
         
         for (index, _) in selectedSegmentViews.enumerated() {
             selectedSegmentViews[index].accessibilityTraits = (index == self.index ? [.button, .selected] : [.button])
+        }
+
+        if shouldUpdateNormalViewsStateWhenUpdateTraits {}
+            for (index, view) in normalSegmentViews.enumerated() {
+                view.isHidden = index == self.index
+            }
         }
     }
     
